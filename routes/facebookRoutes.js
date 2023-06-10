@@ -7,7 +7,7 @@ const {
     deleteById,
     addNewFriend,
     deleteFriend,
-} = require("./controllers\facebookcontroller.js");
+} = require("../controllers/facebookcontroller");
 
 
 router.route('/').get(getAllUsers).post(postNewUser);
