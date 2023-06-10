@@ -1,21 +1,10 @@
-const { Course, Student, User,Friend } = require("../models");
+const { Course, Student, User,Friend } = require("../models/user");
 
 module.exports = {
   // Get all users
   getAllUsers(req, res) {
     User.find()
       .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
-  },
-  // Get a single user
-  getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
-      .select('-__v')
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with that name' })
-          : res.json(course)
-      )
       .catch((err) => res.status(500).json(err));
   },
   // put a new user
@@ -27,6 +16,31 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
+  // Get a single user
+  getSingleUser(req, res) {
+    User.findOne({ _id: req.params.userId })
+      .select('-__v')
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with that name' })
+          : res.json(user)
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+  // update user by id
+  updateUserByID (req, res) {
+    const { userID} =req.params;
+    const updatedUser = req.body;
+
+    User.findByIdAndUpdate(userId, updatedUser, {new: true})
+      .then((user)=>{
+        if (!user){
+          return res.status(404),json({message: "No user"});
+        }
+        res.json(user);
+      })
+      .catch((err)=>res.status(500).json(err));
+    },
   // delete user by id
   deleteByID(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
@@ -37,8 +51,8 @@ module.exports = {
      
       .catch((err) => res.status(500).json(err));
   },
-//add a new friend
-addNewFriend(req, res) {
+  //add a new friend
+  addNewFriend(req, res) {
   Friend.create(req.body)
     .then((user) => res.json(user))
     .catch((err) => {

@@ -3,23 +3,23 @@ const {
     getAllUsers,
     getSingleUser,
     postNewUser,
-    putUserById,
+    updateUserByID,
     deleteById,
     addNewFriend,
     deleteFriend,
 } = require("../controllers/facebookcontroller");
 
 
-router.route('/').get(getAllUsers).post(postNewUser);
+router.route('/')
+    .get(getAllUsers)
+    .post(postNewUser);
 
 router.route('/:userID')
     .get(getSingleUser)
-    .put(putUserById)
-    .delete(deleteById)
-    .post(addNewFriend)
-    .delete(deleteFriend);
+    .put(updateUserByID)
+    .delete(deleteById);
 
-router.route('userID/friends')
+router.route('/:userID/friends')
     .post(addNewFriend)
     .delete(deleteFriend);
     
