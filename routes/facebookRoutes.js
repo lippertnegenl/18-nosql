@@ -1,30 +1,20 @@
 const router = require('express').Router();
 const {
-    getAllUsers,
-    getSingleUser,
-    postNewUser,
-    updateUserByID,
-    deleteById,
-    addNewFriend,
-    deleteFriend,
-} = require("../controllers/facebookcontroller");
+  getAllUsers,
+  getSingleUser,
+  postNewUser,
+  updateUserByID,
+  addNewFriend,
+  deleteFriendByID,
+  deleteUserByID,
+} = require('../controllers/facebookcontroller');
 
+router.get('/', getAllUsers);
+router.get('/:id', getSingleUser);
+router.post('/', postNewUser);
+router.put('/:id', updateUserByID);
+router.post('/:id/friends', addNewFriend);
+router.delete('/:id/friends/:friendId', deleteFriendByID);
+router.delete('/:id', deleteUserByID);
 
-router.route('/')
-    .get(getAllUsers)
-    .post(postNewUser);
-
-router.route('/:userID')
-    .get(getSingleUser)
-    .put(updateUserByID)
-    .delete(deleteById);
-
-router.route('/:userID/friends')
-    .post(addNewFriend)
-    .delete(deleteFriend);
-    
-    
-module.exports = router;   
-    
-    
-
+module.exports = router;
