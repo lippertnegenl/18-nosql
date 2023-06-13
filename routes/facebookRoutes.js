@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const facebookController=require("../controllers/facebookcontroller");
 const {
   getAllUsers,
   getSingleUser,
@@ -9,7 +10,7 @@ const {
   deleteUserByID,
 } = require('../controllers/facebookcontroller');
 
-router.get('/', getAllUsers);
+router.get('/', facebookController.getAllUsers);
 router.get('/:id', getSingleUser);
 router.post('/', postNewUser);
 router.put('/:id', updateUserByID);
